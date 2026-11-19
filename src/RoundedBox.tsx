@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import type { ThreeElements } from "@react-three/fiber";
 import { roundedRect } from "./helpers/rounded-rectangle";
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
   radius: number;
   curveSegments: number;
   depth: number;
-} & Omit<JSX.IntrinsicElements["mesh"], "args">;
+} & Omit<ThreeElements["mesh"], "args">;
 
 export const RoundedBox: React.FC<Props> = ({
   width,

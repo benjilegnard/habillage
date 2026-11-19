@@ -6,9 +6,10 @@ import { AbsoluteFill, useVideoConfig, Video } from "remotion";
 import { Phone } from "./Phone";
 import { z } from "zod";
 import { zColor } from "@remotion/zod-types";
+import { Overlay } from "./Overlay";
 
 const container: React.CSSProperties = {
-  backgroundColor: "white",
+  backgroundColor: "#e4eaeb",
 };
 
 const videoStyle: React.CSSProperties = {
@@ -47,8 +48,10 @@ export const Scene: React.FC<
       <Video ref={videoRef} src={videoSrc} style={videoStyle} />
       {videoData ? (
         <ThreeCanvas linear width={width} height={height}>
-          <ambientLight intensity={1.5} color={0xffffff} />
-          <pointLight position={[10, 10, 0]} />
+          {/* three r155+ uses physical light units: scale by PI and
+              disable decay to match the previous (legacy) lighting */}
+          <ambientLight intensity={1.5 * Math.PI} color={0xffffff} />
+          <pointLight position={[10, 10, 0]} intensity={Math.PI} decay={0} />
           <Phone
             phoneColor={phoneColor}
             baseScale={baseScale}
@@ -57,6 +60,7 @@ export const Scene: React.FC<
           />
         </ThreeCanvas>
       ) : null}
+      <Overlay />
     </AbsoluteFill>
   );
 };
