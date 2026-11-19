@@ -22,7 +22,9 @@ import { Terrain } from "./Terrain";
 export const Landscape: React.FC<{
   seed: string;
   theme: LandscapeTheme;
-}> = ({ seed, theme }) => {
+  // 0 to 1, e.g. from the kick drum: makes the sun halo pulse
+  pulse?: number;
+}> = ({ seed, theme, pulse = 0 }) => {
   const { width, height } = useVideoConfig();
 
   return (
@@ -42,7 +44,7 @@ export const Landscape: React.FC<{
         }}
       >
         <fog attach="fog" args={[hex("crust"), FOG_NEAR, FOG_FAR]} />
-        <Sun theme={theme.sun} />
+        <Sun theme={theme.sun} pulse={pulse} />
         <FarMountains seed={seed} outline={theme.farMountainsOutline} />
         {/* Flat ground from the end of the terrain to the horizon */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, -1000]}>

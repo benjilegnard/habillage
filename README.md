@@ -28,12 +28,25 @@ Compositions:
 | `SynthwaveMoon` | 20 s loop | 1920x1080 | `npm run build:moon` |
 | `SynthwaveThumbnail` | still image | 1280x720 | `npm run build:thumbnail` |
 
+## Music
+
+Each `Synthwave` composition has its own seeded synthwave music loop, generated in the browser at render time (no audio file, no dependency). Same `seed` as the landscape, mood from the `theme` (`sunset`: four on the floor, `moon`: half-time, darker). Set the `music` prop to `false` to disable it.
+
+- 96 BPM, 8 bars = exactly 20 s: the music loops with the video, with no click at the loop point.
+- The same seed always gives the same track (byte identical).
+- The sun halo pulses on each kick drum, read from the score (`src/music/events.ts`).
+- To listen to a seed or export it as a file: `npm run music -- <seed> [sunset|moon] [--check]` writes `public/music/<seed>-<mood>.wav` (`--check` verifies determinism and the loop seam).
+
+Code in `src/music/`: `score.ts` (seed -> notes), `instruments.ts` and `dsp.ts` (synthesis), `fx.ts` (delay, reverb), `render.ts` (mix), `wav.ts`, `useMusic.ts` (React hook). Research notes: `MUSIC.md`.
+
 ## Project structure
 
 - `src/Root.tsx`: list of all compositions, grouped in folders (Backgrounds, Images).
 - `src/compositions/`: one file per video or image, built from the shared components.
 - `src/components/`: reusable parts (`VhsOverlay`, `landscape/` with `Landscape`, `Terrain`, `Sun`, `Sky`, `FarMountains`).
 - `src/theme/`: Catppuccin Mocha colors and color sets (themes).
+- `src/music/`: procedural music engine. `src/components/Music.tsx` plays it.
+- `scripts/render-music.ts`: renders a seed to a WAV file (`npm run music`).
 
 To add a video: create a component in `src/compositions/`, then register it in `src/Root.tsx` with `<Composition>` (video) or `<Still>` (image).
 

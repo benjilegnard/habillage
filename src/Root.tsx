@@ -16,7 +16,11 @@ export const RemotionRoot: React.FC = () => {
           width={1920}
           height={1080}
           schema={synthwaveSchema}
-          defaultProps={{ seed: "lololololo", theme: "sunset" as const }}
+          defaultProps={{
+            seed: "kayak3264",
+            theme: "moon" as const,
+            music: true,
+          }}
         />
         <Composition
           id="SynthwaveMoon"
@@ -26,7 +30,11 @@ export const RemotionRoot: React.FC = () => {
           width={1920}
           height={1080}
           schema={synthwaveSchema}
-          defaultProps={{ seed: "night-drive", theme: "moon" as const }}
+          defaultProps={{
+            seed: "lonely-drive",
+            theme: "moon" as const,
+            music: true,
+          }}
         />
       </Folder>
       <Folder name="Images">
@@ -36,7 +44,11 @@ export const RemotionRoot: React.FC = () => {
           width={1280}
           height={720}
           schema={synthwaveSchema}
-          defaultProps={{ seed: "outrun-1984", theme: "sunset" as const }}
+          defaultProps={{
+            seed: "outrun-1984",
+            theme: "sunset" as const,
+            music: false,
+          }}
         />
       </Folder>
     </>

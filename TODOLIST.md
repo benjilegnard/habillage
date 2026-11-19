@@ -56,3 +56,13 @@ Artistic direction for tech-oriented YouTube and Twitch channels, also covering 
 - [ ] **Generative gallery**: each seed produces a different landscape. Show a grid of 9 seeds as "prints", or one per stream as a collectible "landscape of the day".
 - [ ] **Drawing timelapse frame**: a neon-bordered canvas area with the scene behind it, for art streams.
 - [ ] **Poster series**: still renders with typography in a retro font ("NEON VALLEY", "CIRCUIT SUNSET"), also usable as merch or thumbnails.
+
+## Music
+
+- [x] Seeded procedural synthwave loop for `Synthwave` (pure TS synth, see `MUSIC.md`)
+- [x] Sun halo pulse on the kick drum, from the score
+- [ ] More visual sync: grid flash on the snare, sky color shift on chord changes
+- [ ] Generate in a Web Worker (no Studio freeze when the seed changes)
+- [ ] Longer forms (A A B A, 16 or 32 bars) for intros and "starting soon" loops
+- [ ] Check the loop seam in the final MP4 (AAC padding) on YouTube / OBS
+- [ ] Loudness check (about -14 LUFS) with `ffmpeg -af ebur128`

@@ -2,13 +2,22 @@
   "name": "benjilegnard-social-vids-conf",
   "version": "1.0.0",
   "description": "Looping synthwave landscape video, made with Remotion and React Three Fiber",
-  "repository": {},
   "license": "UNLICENSED",
+  "repository": {},
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render Synthwave out/synthwave.mp4",
+    "build:moon": "remotion render SynthwaveMoon out/synthwave-moon.mp4",
+    "build:thumbnail": "remotion still SynthwaveThumbnail out/synthwave-thumbnail.png",
+    "upgrade": "remotion upgrade",
+    "test": "eslint src && tsc",
+    "music": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/render-music.ts"
+  },
   "dependencies": {
     "@catppuccin/palette": "^1.8.0",
     "@react-three/fiber": "^9.8.2",
     "@remotion/cli": "4.0.545",
-    "@remotion/media": "^4.0.545",
+    "@remotion/media": "4.0.545",
     "@remotion/three": "4.0.545",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -25,13 +34,5 @@
     "eslint": "9.39.5",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
-  },
-  "scripts": {
-    "start": "remotion studio",
-    "build": "remotion render Synthwave out/synthwave.mp4",
-    "build:moon": "remotion render SynthwaveMoon out/synthwave-moon.mp4",
-    "build:thumbnail": "remotion still SynthwaveThumbnail out/synthwave-thumbnail.png",
-    "upgrade": "remotion upgrade",
-    "test": "eslint src && tsc"
   }
 }

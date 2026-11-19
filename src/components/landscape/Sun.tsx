@@ -94,8 +94,12 @@ const drawGlow = (canvas: HTMLCanvasElement, theme: SunTheme) => {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-// Sun (striped) or moon (plain, with craters) on the horizon, with a halo
-export const Sun: React.FC<{ theme: SunTheme }> = ({ theme }) => {
+// Sun (striped) or moon (plain, with craters) on the horizon, with a halo.
+// `pulse` (0 to 1, e.g. on each kick drum) makes the halo grow and glow.
+export const Sun: React.FC<{ theme: SunTheme; pulse?: number }> = ({
+  theme,
+  pulse = 0,
+}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
@@ -125,11 +129,12 @@ export const Sun: React.FC<{ theme: SunTheme }> = ({ theme }) => {
 
   return (
     <group position={[0, y, -SUN_DISTANCE]}>
-      <mesh position={[0, 0, -1]}>
+      <mesh position={[0, 0, -1]} scale={1 + 0.12 * pulse}>
         <planeGeometry args={[SUN_RADIUS * 5, SUN_RADIUS * 5]} />
         <meshBasicMaterial
           map={glow.texture}
           transparent
+          opacity={0.75 + 0.25 * pulse}
           depthWrite={false}
           fog={false}
         />
