@@ -24,9 +24,9 @@ Compositions:
 
 | Id | Type | Size | Script |
 |---|---|---|---|
-| `Synthwave` | 20 s loop | 1920x1080 | `npm run build` |
-| `SynthwaveMoon` | 20 s loop | 1920x1080 | `npm run build:moon` |
-| `SynthwaveThumbnail` | still image | 1280x720 | `npm run build:thumbnail` |
+| `Synthwave` | 20 s loop | 1920x1080 | `pnpm build` |
+| `SynthwaveMoon` | 20 s loop | 1920x1080 | `pnpm build:moon` |
+| `SynthwaveThumbnail` | still image | 1280x720 | `pnpm build:thumbnail` |
 
 ## Music
 
@@ -35,7 +35,7 @@ Each `Synthwave` composition has its own seeded synthwave music loop, generated 
 - 96 BPM, 8 bars = exactly 20 s: the music loops with the video, with no click at the loop point.
 - The same seed always gives the same track (byte identical).
 - The sun halo pulses on each kick drum, read from the score (`src/music/events.ts`).
-- To listen to a seed or export it as a file: `npm run music -- <seed> [sunset|moon] [--check]` writes `public/music/<seed>-<mood>.wav` (`--check` verifies determinism and the loop seam).
+- To listen to a seed or export it as a file: `pnpm music <seed> [sunset|moon] [--check]` writes `public/music/<seed>-<mood>.wav` (`--check` verifies determinism and the loop seam).
 
 Code in `src/music/`: `score.ts` (seed -> notes), `instruments.ts` and `dsp.ts` (synthesis), `fx.ts` (delay, reverb), `render.ts` (mix), `wav.ts`, `useMusic.ts` (React hook). Research notes: `MUSIC.md`.
 
@@ -46,7 +46,7 @@ Code in `src/music/`: `score.ts` (seed -> notes), `instruments.ts` and `dsp.ts` 
 - `src/components/`: reusable parts (`VhsOverlay`, `landscape/` with `Landscape`, `Terrain`, `Sun`, `Sky`, `FarMountains`).
 - `src/theme/`: Catppuccin Mocha colors and color sets (themes).
 - `src/music/`: procedural music engine. `src/components/Music.tsx` plays it.
-- `scripts/render-music.ts`: renders a seed to a WAV file (`npm run music`).
+- `scripts/render-music.ts`: renders a seed to a WAV file (`pnpm music`).
 
 To add a video: create a component in `src/compositions/`, then register it in `src/Root.tsx` with `<Composition>` (video) or `<Still>` (image).
 
@@ -57,24 +57,24 @@ Without a GPU (for example in a VM or CI), add `-- --gl=swangle` to the render s
 ### Install Dependencies
 
 ```console
-npm i
+pnpm install
 ```
 
 ### Start Preview
 
 ```console
-npm start
+pnpm start
 ```
 ### Render MP4 video
 
 ```console
-npm run build
+pnpm build
 ```
 
 ### Upgrade Remotion
 
 ```console
-npm run upgrade
+pnpm upgrade
 ```
 
 ## Docs

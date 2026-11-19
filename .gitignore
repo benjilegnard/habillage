@@ -6,5 +6,5 @@ dist
 # Ignore the output video from Git but not videos you import into src/.
 out
 
-# Generated music (npm run music)
+# Generated music (pnpm music)
 public/music/

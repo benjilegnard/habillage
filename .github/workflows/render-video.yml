@@ -5,13 +5,18 @@ jobs:
     name: Render video
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-node@main
-      - run: sudo apt update
-      - run: sudo apt install ffmpeg
-      - run: npm i
-      - run: npm run build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          name: out.mp4
-          path: out.mp4
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # No GPU on GitHub runners: software rendering instead of angle-egl
+      - run: pnpm build --gl=swangle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthwave.mp4
+          path: out/synthwave.mp4

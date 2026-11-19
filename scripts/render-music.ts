@@ -30,7 +30,7 @@ const render = () => {
 };
 
 const { score, ms, wav, left, right } = render();
-// Run from the project root (npm run music)
+// Run from the project root (pnpm music)
 const dir = join(process.cwd(), "public", "music");
 mkdirSync(dir, { recursive: true });
 const file = join(dir, `${seed}-${mood}.wav`);

@@ -31,7 +31,7 @@ Remotion renders frames one by one in headless Chrome (Chrome Headless Shell). R
 - **`calculateMetadata()`** runs once per render ("called a single time, independently from the concurrency of the render"), in a separate tab, and can return new `props`. They must be JSON serializable, so audio has to travel as a data URL string. Tested: works and gives the same output, but the big prop (1 MB for 4 s, about 5 MB for 20 s of 16-bit stereo) is sent to every tab, and the 4 s test render took about 10.5 s instead of about 5 s. Docs: https://www.remotion.dev/docs/calculate-metadata
 - **`delayRender()`** blocks frame capture until async work is done (default timeout 30 s). Each render tab runs it on its own: with the default concurrency (8x on this machine), the generation runs 8 times (seen in the logs). With about 50 ms to 1 s per generation, that is fine. Docs: https://www.remotion.dev/docs/delay-render
 - **`staticFile()`** for files in `public/`, produced by a pre-render script. Simplest and most cacheable, but the files must exist before rendering (a build step per seed). Docs: https://www.remotion.dev/docs/staticfile
-- `@remotion/media` is present in `node_modules` (4.0.545, pulled in by the CLI) but is not declared in `package.json`. Add it explicitly with `npx remotion add @remotion/media` (and `@remotion/media-utils` if `visualizeAudio` is used).
+- `@remotion/media` (4.0.545) is declared in `package.json`. Add `@remotion/media-utils` with `pnpm exec remotion add @remotion/media-utils` if `visualizeAudio` is used.
 
 ## 3. Options compared
 
@@ -239,7 +239,7 @@ All PoC code lives outside the repo, in `/tmp/music-poc.WRn0uO/` (temp dir from 
    - After the noise table fix: **loop 2 and loop 3 bit identical** (max diff 0), so the loop seam is exact.
    - Speed: 60 s of audio (3 loops) rendered in about 0.6 s.
 2. **Tone.js 15.1.22 in Node with node-web-audio-api 2.2.0** (`tone-node.mjs`): works only after setting `globalThis.self`, `window`, `isSecureContext = true` and copying the API onto globals. Without seeding: 3 runs, 3 different files (Noise uses `Math.random`). With a seeded `Math.random`: still not identical while `Freeverb` (AudioWorklet) is used, and a `DataCloneError` is logged. With seeded `Math.random` and no worklet effect: **5 runs byte identical**.
-3. **Real Remotion 4.0.545 renders** (`rem/`, minimal project, `npx remotion render ... out.wav`, 4 s comps, concurrency 8x), each comp rendered twice:
+3. **Real Remotion 4.0.545 renders** (`rem/`, minimal project, `pnpm exec remotion render ... out.wav`, 4 s comps, concurrency 8x), each comp rendered twice:
    - Plain `OfflineAudioContext` generated in a component with `delayRender`, blob URL into `@remotion/media` `<Audio>`: renders, **identical** across 2 renders, about 45 ms generation per tab.
    - Tone.js `Tone.Offline()` in the component (seeded `Math.random`, no worklet): **identical** across 2 renders, about 160 ms per tab.
    - Tone.js with `Freeverb`: **not identical** (max 1 LSB, 8756 of 384000 samples differ), about 500 ms per tab.
