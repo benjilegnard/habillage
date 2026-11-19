@@ -1,15 +1,14 @@
 {
   "name": "benjilegnard-social-vids-conf",
   "version": "1.0.0",
-  "description": "A React Three Fiber Project",
+  "description": "Looping synthwave landscape video, made with Remotion and React Three Fiber",
   "repository": {},
   "license": "UNLICENSED",
   "dependencies": {
+    "@catppuccin/palette": "^1.8.0",
     "@react-three/fiber": "^9.8.2",
     "@remotion/cli": "4.0.545",
-    "@remotion/media-utils": "4.0.545",
     "@remotion/three": "4.0.545",
-    "@remotion/zod-types": "4.0.545",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "remotion": "4.0.545",
@@ -28,7 +27,7 @@
   },
   "scripts": {
     "start": "remotion studio",
-    "build": "remotion render Scene out/video.mp4",
+    "build": "remotion render Synthwave out/synthwave.mp4",
     "upgrade": "remotion upgrade",
     "test": "eslint src && tsc"
   },

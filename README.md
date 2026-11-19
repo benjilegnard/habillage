@@ -1,20 +1,11 @@
-# Remotion + React Three Fiber Starter Template
+# Synthwave landscape
 
-<p align="center">
-    <img src="demo.gif" style="border-radius: 5px">
-</p>
+A looping 1920x1080 video (20 s at 30 fps) of a 3D synthwave landscape, made with [Remotion](https://remotion.dev) and [React Three Fiber](https://docs.pmnd.rs/react-three-fiber).
 
-[This is a template repository, click "Use this template" to create a repository based off this template!](https://github.com/JonnyBurger/remotion-template-three/generate)
-
-This is a lightweight boilerplate for [Remotion](https://github.com/jonnyburger/remotion) with [React Three Fiber](https://github.com/pmndrs/react-three-fiber) and [@remotion/three](http://remotion.dev/docs/three) preinstalled.
-
-- [Remotion documentation](https://remotion.dev)
-- [React Three Fiber documentation](https://docs.pmnd.rs/react-three-fiber)
-- [@remotion/three documentation](http://remotion.dev/docs/three)
-
-This example features a phone with a screen. You can easily switch out the video and change a series of parameters, like size, color, aspect ratio, corner radius etc. of the phone.
-
-You can also simply delete everything inside the canvas to start off with your own 3D project.
+- The camera moves slowly over a grid terrain towards a setting sun.
+- The terrain is flat in front of the camera, with mountains on both sides. Mountain heights come from the `seed` prop (change it in the Studio).
+- All colors come from [Catppuccin Mocha](https://github.com/catppuccin/palette).
+- Settings (speed, terrain size, sun, camera) are in `src/Synthwave/config.ts`.
 
 ## Commands
 
