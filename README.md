@@ -17,7 +17,27 @@ Twitch: <https://www.twitch.tv/benjilegnard>
 A looping 1920x1080 video (20 s at 30 fps) of a 3D synthwave landscape, made with [Remotion](https://remotion.dev) and [React Three Fiber](https://docs.pmnd.rs/react-three-fiber).
 - The camera moves slowly over a grid terrain towards a setting sun.
 - The terrain is flat in front of the camera, with mountains on both sides. Mountain heights come from the `seed` prop (change it in the Studio).
-- Settings (speed, terrain size, sun, camera) are in `src/Synthwave/config.ts`.
+- Settings (speed, terrain size, sun, camera) are in `src/components/landscape/config.ts`.
+- The `theme` prop selects a color set from `src/theme/landscape.ts`: `sunset` (striped sun) or `moon`.
+
+Compositions:
+
+| Id | Type | Size | Script |
+|---|---|---|---|
+| `Synthwave` | 20 s loop | 1920x1080 | `npm run build` |
+| `SynthwaveMoon` | 20 s loop | 1920x1080 | `npm run build:moon` |
+| `SynthwaveThumbnail` | still image | 1280x720 | `npm run build:thumbnail` |
+
+## Project structure
+
+- `src/Root.tsx`: list of all compositions, grouped in folders (Backgrounds, Images).
+- `src/compositions/`: one file per video or image, built from the shared components.
+- `src/components/`: reusable parts (`VhsOverlay`, `landscape/` with `Landscape`, `Terrain`, `Sun`, `Sky`, `FarMountains`).
+- `src/theme/`: Catppuccin Mocha colors and color sets (themes).
+
+To add a video: create a component in `src/compositions/`, then register it in `src/Root.tsx` with `<Composition>` (video) or `<Still>` (image).
+
+Without a GPU (for example in a VM or CI), add `-- --gl=swangle` to the render scripts.
 
 ## Commands
 

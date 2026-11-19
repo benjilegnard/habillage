@@ -10,7 +10,8 @@ import {
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry.js";
-import { hex } from "../colors";
+import { hex } from "../../theme/colors";
+import { LandscapeTheme } from "../../theme/landscape";
 import {
   CELL_SIZE,
   FAR_FADE_END,
@@ -24,11 +25,6 @@ import {
 import { generateHeightmap, smoothstep } from "./heightmap";
 
 const VERTEX_COUNT = TERRAIN_ROWS * TERRAIN_COLS;
-
-// Grid line colors, from the flat floor to the mountain peaks
-const LOW = new Color(hex("mauve"));
-const MID = new Color(hex("pink"));
-const HIGH = new Color(hex("peach"));
 
 const buildGeometries = (width: number, height: number) => {
   const position = new BufferAttribute(new Float32Array(VERTEX_COUNT * 3), 3);
@@ -83,7 +79,10 @@ const buildGeometries = (width: number, height: number) => {
 const interleavedArray = (geometry: LineSegmentsGeometry, name: string) =>
   (geometry.getAttribute(name) as InterleavedBufferAttribute).data;
 
-export const Terrain: React.FC<{ seed: string }> = ({ seed }) => {
+export const Terrain: React.FC<{
+  seed: string;
+  colors: LandscapeTheme["grid"];
+}> = ({ seed, colors: gridColors }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, width, height } = useVideoConfig();
 
@@ -108,6 +107,12 @@ export const Terrain: React.FC<{ seed: string }> = ({ seed }) => {
   const shift = Math.floor(distance / CELL_SIZE);
   const offset = distance - shift * CELL_SIZE;
 
+  // Grid line colors, from the flat floor to the mountain peaks
+  const [low, mid, high] = useMemo(
+    () => gridColors.map((name) => new Color(hex(name))),
+    [gridColors],
+  );
+
   useMemo(() => {
     const { position, colors, segments, surface, grid } = geometries;
     const halfWidth = ((TERRAIN_COLS - 1) / 2) * CELL_SIZE;
@@ -125,9 +130,9 @@ export const Terrain: React.FC<{ seed: string }> = ({ seed }) => {
 
         const t = Math.min(1, y / MOUNTAIN_MAX_HEIGHT);
         if (t < 0.35) {
-          tmp.lerpColors(LOW, MID, smoothstep(0, 0.35, t));
+          tmp.lerpColors(low, mid, smoothstep(0, 0.35, t));
         } else {
-          tmp.lerpColors(MID, HIGH, smoothstep(0.35, 1, t));
+          tmp.lerpColors(mid, high, smoothstep(0.35, 1, t));
         }
         colors[i * 3] = tmp.r;
         colors[i * 3 + 1] = tmp.g;
@@ -150,7 +155,7 @@ export const Terrain: React.FC<{ seed: string }> = ({ seed }) => {
     }
     segmentPositions.needsUpdate = true;
     segmentColors.needsUpdate = true;
-  }, [geometries, heights, shift, offset]);
+  }, [geometries, heights, shift, offset, low, mid, high]);
 
   return (
     <group>

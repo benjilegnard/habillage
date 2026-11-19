@@ -8,7 +8,7 @@ import {
   ShapeGeometry,
   Vector3,
 } from "three";
-import { hex } from "../colors";
+import { hex, MochaColor } from "../../theme/colors";
 import { FAR_MOUNTAINS_DISTANCE, SUN_RADIUS } from "./config";
 import { smoothstep } from "./heightmap";
 
@@ -40,7 +40,10 @@ const buildProfile = (seed: string) => {
   });
 };
 
-export const FarMountains: React.FC<{ seed: string }> = ({ seed }) => {
+export const FarMountains: React.FC<{
+  seed: string;
+  outline: MochaColor;
+}> = ({ seed, outline: outlineColor }) => {
   const { fill, outline } = useMemo(() => {
     const points = buildProfile(seed);
     const shape = new Shape();
@@ -54,10 +57,10 @@ export const FarMountains: React.FC<{ seed: string }> = ({ seed }) => {
       fill: new ShapeGeometry(shape),
       outline: new Line(
         new BufferGeometry().setFromPoints(points),
-        new LineBasicMaterial({ color: hex("mauve"), fog: false }),
+        new LineBasicMaterial({ color: hex(outlineColor), fog: false }),
       ),
     };
-  }, [seed]);
+  }, [seed, outlineColor]);
 
   useEffect(() => {
     return () => {

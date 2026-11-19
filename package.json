@@ -28,6 +28,8 @@
   "scripts": {
     "start": "remotion studio",
     "build": "remotion render Synthwave out/synthwave.mp4",
+    "build:moon": "remotion render SynthwaveMoon out/synthwave-moon.mp4",
+    "build:thumbnail": "remotion still SynthwaveThumbnail out/synthwave-thumbnail.png",
     "upgrade": "remotion upgrade",
     "test": "eslint src && tsc"
   },

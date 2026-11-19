@@ -5,8 +5,8 @@ Artistic direction for tech-oriented YouTube and Twitch channels, also covering 
 
 ## Shared building blocks (do first)
 
-- [ ] `<VhsOverlay>`: already isolated, make it configurable (scanlines, tracking band, flicker, vignette)
-- [ ] `<Sun variant="sun" | "moon">` with palette accents
+- [x] `<VhsOverlay>`: already isolated, make it configurable (scanlines, tracking band, flicker, vignette)
+- [x] `<Sun variant="sun" | "moon">` with palette accents
 - [ ] `<GridTerrain heightSource="seed" | "audio" | "pcb">`
 - [ ] `<NeonText>` for titles (glow, flicker, chromatic split)
 - [ ] `theme.ts`: map each subject (tech, music, electronics, art) to its Mocha accent color
@@ -24,7 +24,7 @@ Artistic direction for tech-oriented YouTube and Twitch channels, also covering 
 
 - [ ] **Night drive**: the camera follows a straight neon road with lane lines and light poles passing by, and a city skyline on the horizon instead of mountains.
 - [ ] **Seasons and moods by palette accent**: same scene, but one accent color changes per series: teal/sky for tech, green for electronics, pink/mauve for music, peach/yellow for art.
-- [ ] **Moon variant**: a lavender/blue striped moon and more stars, for late-night streams.
+- [x] **Moon variant**: a lavender/blue moon and more stars, for late-night streams (`SynthwaveMoon`).
 - [ ] **Ocean grid**: a sine-wave grid sea instead of mountains, with the sun reflected as stripes on the water.
 - [ ] **Tunnel**: the grid wrapped into a cylinder, giving fast forward motion. Good for transitions.
 - [ ] **Wireframe city**: seeded building blocks on both sides instead of mountains, with windows that blink.

@@ -1,9 +1,3 @@
-// Video
-export const FPS = 30;
-export const DURATION_IN_FRAMES = 20 * FPS;
-export const WIDTH = 1920;
-export const HEIGHT = 1080;
-
 // Camera
 export const CAMERA_FOV = 50; // vertical, in degrees
 export const CAMERA_HEIGHT = 1.6;
@@ -15,7 +9,8 @@ export const HORIZON_RATIO =
   Math.tan(CAMERA_PITCH) / (2 * Math.tan(((CAMERA_FOV / 2) * Math.PI) / 180));
 
 // Terrain grid. The heightmap repeats every TERRAIN_ROWS rows, and the camera
-// travels exactly TERRAIN_ROWS cells during the video, so the video loops.
+// travels exactly TERRAIN_ROWS cells during the composition, so it loops
+// whatever its duration.
 export const CELL_SIZE = 1;
 export const TERRAIN_ROWS = 90;
 export const TERRAIN_COLS = 161;
