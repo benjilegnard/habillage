@@ -1,33 +1,44 @@
-# Synthwave landscape
+# BenjiLeGnard's habillage
+
+Vid and assets generator for [BenjiLeGnard]()'s channels.
+
+YouTube: <https://www.youtube.com/@benjilegnard>
+Twitch: <https://www.twitch.tv/benjilegnard>
+
+## Rules
+
+- All colors come from [Catppuccin Mocha](https://github.com/catppuccin/palette).
+- Follow a synthwave / neon / cyberpunk aesthetic.
+
+## Videos
+
+### Synthwave landscape
 
 A looping 1920x1080 video (20 s at 30 fps) of a 3D synthwave landscape, made with [Remotion](https://remotion.dev) and [React Three Fiber](https://docs.pmnd.rs/react-three-fiber).
-
 - The camera moves slowly over a grid terrain towards a setting sun.
 - The terrain is flat in front of the camera, with mountains on both sides. Mountain heights come from the `seed` prop (change it in the Studio).
-- All colors come from [Catppuccin Mocha](https://github.com/catppuccin/palette).
 - Settings (speed, terrain size, sun, camera) are in `src/Synthwave/config.ts`.
 
 ## Commands
 
-**Install Dependencies**
+### Install Dependencies
 
 ```console
 npm i
 ```
 
-**Start Preview**
+### Start Preview
 
 ```console
 npm start
 ```
-
-**Render MP4 video**
+### Render MP4 video
 
 ```console
 npm run build
 ```
 
-**Upgrade Remotion**
+### Upgrade Remotion
 
 ```console
 npm run upgrade
