@@ -32,6 +32,5 @@
     "build:thumbnail": "remotion still SynthwaveThumbnail out/synthwave-thumbnail.png",
     "upgrade": "remotion upgrade",
     "test": "eslint src && tsc"
-  },
-  "packageManager": "npm@10.2.4"
+  }
 }
