@@ -255,7 +255,7 @@ Not tested: full 20 s compositions inside this repo, MP4/AAC seam behavior, Elem
 
 - **Sound quality of a home made synth**: naive saws alias (audible on high leads). Use polyBLEP oscillators, oversampling for saturation, and a decent reverb (Freeverb or FDN port, about 100 lines). Budget time for sound design, it is the real work.
 - **Generation time for 20 s or longer pieces**: pure JS renders roughly 100x faster than real time in Node in the PoC, but a richer engine (many voices, reverb) can be 5 to 10x slower. It runs once per render tab and must stay under the `delayRender` timeout (30 s default, configurable). For long pieces (intros, 5 min "starting soon" loops), prefer a pre-render script writing `public/music/<seed>.wav`, or run generation in a Web Worker.
-- **Studio responsiveness**: generation runs on the main thread, so changing the seed freezes the Studio briefly. A Web Worker fixes this if needed.
+- **Studio responsiveness**: generation runs in a Web Worker (`music.worker.ts`), so changing the seed no longer freezes the Studio.
 - **Blob URL lifetime**: revoke old URLs on seed change (hook cleanup), keep the URL alive while the component is mounted.
 - **Html5Audio fallback**: a blob URL that `@remotion/media` cannot decode would fall back to `<Html5Audio>` and fail in render (Node cannot fetch `blob:`). Use `disallowFallbackToHtml5Audio`.
 - **Client side rendering** (`@remotion/web-renderer`) and Lambda: not tested. Lambda would regenerate audio in every Lambda function (fine if cheap).

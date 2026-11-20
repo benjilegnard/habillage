@@ -37,7 +37,7 @@ Each `Synthwave` composition has its own seeded synthwave music loop, generated 
 - The sun halo pulses on each kick drum, read from the score (`src/music/events.ts`).
 - To listen to a seed or export it as a file: `pnpm music <seed> [sunset|moon] [--check]` writes `public/music/<seed>-<mood>.wav` (`--check` verifies determinism and the loop seam).
 
-Code in `src/music/`: `score.ts` (seed -> notes), `instruments.ts` and `dsp.ts` (synthesis), `fx.ts` (delay, reverb), `render.ts` (mix), `wav.ts`, `useMusic.ts` (React hook). Research notes: `MUSIC.md`.
+Code in `src/music/`: `score.ts` (seed -> notes), `instruments.ts` and `dsp.ts` (synthesis), `fx.ts` (delay, reverb), `render.ts` (mix), `wav.ts`, `music.worker.ts` (renders the WAV off the main thread), `useMusic.ts` (React hook). Research notes: `MUSIC.md`.
 
 ## Project structure
 

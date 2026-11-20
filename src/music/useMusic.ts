@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDelayRender } from "remotion";
-import { renderScore, SAMPLE_RATE } from "./render.ts";
+import type {
+  MusicWorkerRequest,
+  MusicWorkerResponse,
+} from "./music.worker.ts";
 import { makeScore, type Mood, type Score } from "./score.ts";
-import { encodeWav } from "./wav.ts";
 
 export type Music = {
   score: Score;
@@ -11,9 +13,10 @@ export type Music = {
 };
 
 /**
- * Generates the seeded music loop in the browser. The score (pure data,
+ * Generates the seeded music loop in a Web Worker. The score (pure data,
  * cheap) is available at once for visuals. The audio takes about 1 s and
- * holds the render with delayRender() until it is ready.
+ * holds the render with delayRender() until it is ready, without blocking
+ * the main thread. A seed change terminates the running worker.
  * With `enabled = false`, only the score is computed (no audio).
  */
 export const useMusic = (seed: string, mood: Mood, enabled = true): Music => {
@@ -35,21 +38,30 @@ export const useMusic = (seed: string, mood: Mood, enabled = true): Music => {
       }
     };
 
-    // setTimeout: let the first frame paint before the CPU heavy work
-    const timeout = setTimeout(() => {
-      try {
-        const { left, right } = renderScore(score, SAMPLE_RATE);
-        const wav = encodeWav(left, right, SAMPLE_RATE);
-        url = URL.createObjectURL(new Blob([wav], { type: "audio/wav" }));
-        setSrc(url);
-        finish();
-      } catch (err) {
-        cancelRender(err);
+    const worker = new Worker(new URL("./music.worker.ts", import.meta.url));
+    worker.onmessage = (event: MessageEvent<MusicWorkerResponse>) => {
+      worker.terminate();
+      const message = event.data;
+      if (!message.ok) {
+        cancelRender(new Error(`Music worker failed: ${message.error}`));
+        return;
       }
-    });
+      url = URL.createObjectURL(
+        new Blob([message.wav], { type: "audio/wav" }),
+      );
+      setSrc(url);
+      finish();
+    };
+    worker.onerror = (event) => {
+      worker.terminate();
+      cancelRender(new Error(`Music worker error: ${event.message}`));
+    };
+    const request: MusicWorkerRequest = { score };
+    worker.postMessage(request);
 
     return () => {
-      clearTimeout(timeout);
+      // Stops a generation still running for a previous seed
+      worker.terminate();
       // Never leave a pending delayRender (seed change, unmount, strict mode)
       finish();
       if (url) URL.revokeObjectURL(url);
